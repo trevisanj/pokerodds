@@ -11,9 +11,9 @@ while True:
     print("(*) BEGIN (*)")
     print("♠♥♦♣ "+CC[trans(hand)]+" ♤♡♢♧")
     n = len(hand)
-    nc0 = binomial_coefficient(52 - n, 7 - n)
-    nc1 = nc0*binomial_coefficient(7, 5)
-    print(f"Number of combinations: {nc0}, {nc1}")
+    nc0 = int(binomial_coefficient(52 - n, 7 - n))
+    nc1 = int(nc0*binomial_coefficient(7, 5))
+    print(f"Number of combinations: {nc0}")
     print("(*) END (*)")
 
     question = f"{nice_hand(hand)} >> "

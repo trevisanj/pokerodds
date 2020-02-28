@@ -4,6 +4,7 @@ import itertools
 import math
 import tabulate
 import copy
+import time
 
 __all__ = ["CC", "get_cards", "trans", "valhand", "InvalidCardError", "analyze", "binomial_coefficient", "nice_hand"]
 
@@ -54,6 +55,9 @@ def trans(_hand):
     hand.sort()
     game = 0
     nha = len(hand)
+
+    if nha == 0:
+        return game
 
     numbers, suites = list(["".join(x) for x in zip(*hand)])
 
@@ -118,6 +122,7 @@ def analyze(hand):
     hh7 = []
     ii = 0
     iii = 0
+    t = time.time()
     for c in cc:
         handall = hand+list(c)
         h5 = trans(handall[2:])
@@ -131,6 +136,7 @@ def analyze(hand):
         if iii == 1000:
             print(f"{ii+1}/{ncc}")
             iii = 0
+    print(f"🕖🕖🕖🕖🕖🕖🕖🕖🕖🕖🕖🕖🕖🕖🕖🕖 analyze {time.time()-t:.3} 🕖🕖🕖🕖🕖🕖🕖🕖🕖🕖🕖🕖🕖🕖🕖🕖")
 
 
     ch5 = Counter(hh5)
@@ -146,7 +152,6 @@ def analyze(hand):
         dd.append([CC[key]]+
                    ([None, None, None, None] if key not in ch5 else [ch5[key], n, ch5[key]/n*100, "%"])+
                    ([None, None, None, None] if key not in ch7 else [ch7[key], n, ch7[key]/n*100, "%"]))
-
     report = tabulate.tabulate(dd, hh)
 
     return report
